@@ -1,0 +1,14 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.9.4
+Type=Application
+Name=python 1602 I2C LCD server
+Comment= 1602 I2C LCD option
+#Exec=/usr/bin/launch_i2c_lcd_server.sh
+#Exec=
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+

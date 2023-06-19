@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+    <hr>
+        <h1> GIS LED Option Server </h1>
+        <form name="LED_ROLE" action="select_role" method="POST" onsubmit="">
+           <h1>{{ form.role_switcher.label() }}</h1>
+            {{ form.role_switcher() }}
+        <p> {{ form.submit }}</p>
+        </form>
+    <hr>
+
+{% endblock %}
+

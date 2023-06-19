@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=0.1.1
+Type=Application
+Name=set auto mount with xconf
+Comment=set auto mount with xconf
+Exec=/usr/bin/provision.sh
+OnlyShowIn=XFCE;
+RunHook=0
+StartupNotify=false
+Terminal=false
+Hidden=false
+
