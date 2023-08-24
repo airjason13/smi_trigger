@@ -394,7 +394,10 @@ void setup_smi_dma(MEM_MAP *mp, int nsamp){
 	smi_cs->pxldat = 1;
 	smi_l->len = nsamp*sizeof(TXDATA_T);
 	//smi_l->len = test_len;//nsamp*sizeof(TXDATA_T);
-	printf("smi_l->len = 0x%08x\n", smi_l->len);
+    
+	log_debug("nsamp = %d\n", nsamp);
+	log_debug("sizeof(TXDATA_T) = %d\n", sizeof(TXDATA_T));
+	log_debug("smi_l->len = 0x%08x\n", smi_l->len);
 	smi_cs->write = 1;
 	enable_dma(DMA_CHAN);
     // DMA_WAIT_RESP will cause the signal hang 
@@ -547,7 +550,7 @@ int init_rpi_smi(int led_timing_type, int bits_per_pixel, bool gain_mode){
     }else{
 	    if(i_icled_bits_per_pixel == BITS_PER_PIXEL_48){
 	    	map_uncached_mem(&vc_mem, VC_MEM_SIZE_16CHAN_48BIT);
-	   	setup_smi_dma(&vc_mem, TX_BUFF_LEN_48BIT(chan_ledcount));
+	   	    setup_smi_dma(&vc_mem, TX_BUFF_LEN_48BIT(chan_ledcount));
         	printf("48bit 16chan init dma len = %d\n", TX_BUFF_LEN_48BIT(chan_ledcount));
     	    }else if(i_icled_bits_per_pixel == BITS_PER_PIXEL_24){
 	    	map_uncached_mem(&vc_mem, VC_MEM_SIZE_16CHAN_24BIT);
@@ -730,7 +733,7 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
 	if(i_icled_timing == ICLED_SMI_TIMING_TYPE_APA104){
     		if(bpp == BITS_PER_PIXEL_24){
 			for(int z = 0; z < 50;z ++){
-				*(txdata + z) = 0xff;
+				*(txdata + z) = 0xffff;
 			}
     			memcpy(txdata + 688, tx_buffer_24bit[tx_buf_r_index], TX_BUFF_SIZE_16CHAN_24BIT(chan_ledcount));
 			i_n_cg_bytes = 688;
@@ -755,11 +758,13 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     rpi_start_dma(&vc_mem);
     smi_l->len = 0;
         
-    if(bpp == BITS_PER_PIXEL_48)
+    if(bpp == BITS_PER_PIXEL_48){
     	smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
-    else if(bpp == BITS_PER_PIXEL_24){
-    	smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
-    	log_debug("smi_l->len = %d\n", TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
+    	log_debug("smi_l->len = %d\n", TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
+    }else if(bpp == BITS_PER_PIXEL_24){
+    	smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount) + 960;//TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
+    	//log_debug("smi_l->len = %d\n", TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
+    	log_debug("smi_l->len = %d\n", smi_l->len);	
     }else{
 	log_debug("unknown bpp!\n");
     	pthread_mutex_unlock(&smi_lock);
@@ -775,22 +780,28 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
         }
         usleep(1000*1);
         unsigned int end_ret = *REG32(smi_regs, SMI_L);
+        log_debug("end_ret = %d\n", end_ret);
     	if(bpp == BITS_PER_PIXEL_48){
         	if((end_ret % TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T)) == 0){
+                    end_ret = *REG32(smi_regs, SMI_L);
+                    log_debug("48bpp break end_ret = %d\n", end_ret);
             		usleep(1000*1);
             		break;
         	}
-	}else if(bpp == BITS_PER_PIXEL_24){
-        	if((end_ret % TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T)) == 0){
+	    }else if(bpp == BITS_PER_PIXEL_24){
+        	//if((end_ret % (TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T)) + i_n_cg_bytes) == 0){
+        	if(smi_l->len % end_ret == 0){
+                    end_ret = *REG32(smi_regs, SMI_L);
+                    log_debug("24bpp break end_ret = %d\n", end_ret);
             		usleep(1000*1);
             		break;
         	}
-	}else{
-		log_debug("unknown bpp!\n");
+	    }else{
+		    log_debug("unknown bpp!\n");
     		pthread_mutex_unlock(&smi_lock);
-		return -1;
+		    return -1;
 		
-	}
+	    }
         //printf("smi working!\n");
     }
     stop_smi();
