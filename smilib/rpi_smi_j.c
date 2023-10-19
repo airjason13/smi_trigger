@@ -169,7 +169,10 @@ int smi_quit = 0;
 void rgb_txdata(int *rgbs, TXDATA_T *txd){
 	int i, n, msk;
 	for (n=0; n<LED_NBITS_24; n++){
-		msk = n==0? 0x8000: n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
+		//msk = n==0? 0x8000: n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
+		//msk = n==0? 0x8000: n==8 ? 0x80 : n==16 ? 0x800000 : msk>>1;
+        msk = n==0 ? 0x8000 : n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
+        //log_debug("msk : %d\n", msk);
 		txd[0] = (TXDATA_T)0xffff;
 		txd[1] = txd[2] = 0;
 		for (i = 0; i < LED_NCHANS; i++){
@@ -759,9 +762,11 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     smi_l->len = 0;
         
     if(bpp == BITS_PER_PIXEL_48){
-    	smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
+        //should be nsamp
+    	smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount) + 960;
     	log_debug("smi_l->len = %d\n", TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
     }else if(bpp == BITS_PER_PIXEL_24){
+        //should be nsamp
     	smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount) + 960;//TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
     	//log_debug("smi_l->len = %d\n", TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
     	log_debug("smi_l->len = %d\n", smi_l->len);	
@@ -782,7 +787,8 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
         unsigned int end_ret = *REG32(smi_regs, SMI_L);
         log_debug("end_ret = %d\n", end_ret);
     	if(bpp == BITS_PER_PIXEL_48){
-        	if((end_ret % TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T)) == 0){
+        	//if((end_ret % TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T)) == 0){
+        	if(smi_l->len % end_ret == 0){
                     end_ret = *REG32(smi_regs, SMI_L);
                     log_debug("48bpp break end_ret = %d\n", end_ret);
             		usleep(1000*1);

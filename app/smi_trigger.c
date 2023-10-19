@@ -34,7 +34,7 @@ int set_current_gain_buffer(int i_bpp, int rgain, int ggain, int bgain)
 	int n = 0;
 	if(i_bpp == BITS_PER_PIXEL_24){
 		unsigned int ui_rgb_gain = rgain << 16 | ggain << 8 | bgain << 0;
-		for(m = 0; m < 15; m ++){
+		for(m = 0; m < 16; m ++){
 			for(n = 0; n < 999; n ++){
 				ui_rgb_data[n][m] = ui_rgb_gain;
 			}
@@ -73,7 +73,7 @@ int set_test_pattern(int i_bpp, int color, int level)
 			return -1;
 		}
 		log_debug("rgb_color_value = %ld\n", rgb_color_value);
-		for(m = 0; m < 15; m ++){
+		for(m = 0; m < 16; m ++){
 			for(n = 0; n < 999; n ++){
 				ul_rgb_data[n][m] = rgb_color_value;
 			}
@@ -91,7 +91,7 @@ int set_test_pattern(int i_bpp, int color, int level)
 			log_error("unknown color type %d!\n", color);
 			return -1;
 		}
-		for(m = 0; m < 15; m ++){
+		for(m = 0; m < 16; m ++){
 			for(n = 0; n < 999; n ++){
 				ui_rgb_data[n][m] = rgb_color_value;
 			}
