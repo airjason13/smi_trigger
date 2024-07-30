@@ -1,11 +1,11 @@
 Archive member included to satisfy reference by file (symbol)
 
-/home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
-                              /tmp/cc93nRJI.o (smi_terminate)
-/home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
-                              /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o) (close_mbox)
-/home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
-                              /tmp/cc93nRJI.o (jlog)
+/home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+                              /tmp/ccwjQj9b.o (smi_terminate)
+/home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+                              /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o) (close_mbox)
+/home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
+                              /tmp/ccwjQj9b.o (jlog)
 
 Merging program properties
 
@@ -23,21 +23,21 @@ Discarded input sections
  .note.gnu.property
                 0x0000000000000000       0x20 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /tmp/cc93nRJI.o
+                0x0000000000000000        0x0 /tmp/ccwjQj9b.o
  .note.gnu.property
-                0x0000000000000000       0x20 /tmp/cc93nRJI.o
+                0x0000000000000000       0x20 /tmp/ccwjQj9b.o
  .note.GNU-stack
-                0x0000000000000000        0x0 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
+                0x0000000000000000        0x0 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
  .note.gnu.property
-                0x0000000000000000       0x20 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
+                0x0000000000000000       0x20 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
  .note.GNU-stack
-                0x0000000000000000        0x0 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
+                0x0000000000000000        0x0 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
  .note.gnu.property
-                0x0000000000000000       0x20 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
+                0x0000000000000000       0x20 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
  .note.GNU-stack
-                0x0000000000000000        0x0 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+                0x0000000000000000        0x0 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
  .note.gnu.property
-                0x0000000000000000       0x20 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+                0x0000000000000000       0x20 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
  .note.GNU-stack
                 0x0000000000000000        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
  .note.gnu.property
@@ -57,14 +57,14 @@ Linker script and memory map
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
-LOAD /tmp/cc93nRJI.o
-LOAD /home/root/sandbox/smi_trigger/libs//liblcdcli.a
-LOAD /home/root/sandbox/smi_trigger/libs//libjtimer.a
-LOAD /home/root/sandbox/smi_trigger/libs//libsmi.a
+LOAD /tmp/ccwjQj9b.o
+LOAD /home/root/smi_trigger-main/libs//liblcdcli.a
+LOAD /home/root/smi_trigger-main/libs//libjtimer.a
+LOAD /home/root/smi_trigger-main/libs//libsmi.a
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../libpthread.so
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../libm.so
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../librt.so
-LOAD /home/root/sandbox/smi_trigger/libs//libutildbg.a
+LOAD /home/root/smi_trigger-main/libs//libutildbg.a
 LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/libgcc.a
 LOAD /lib/libgcc_s.so
 START GROUP
@@ -176,7 +176,7 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  .plt           0x0000000000001230      0x330 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
  *(.iplt)
 
-.text           0x0000000000001580     0x4c38
+.text           0x0000000000001580     0x50fc
  *(.text.unlikely .text.*_unlikely .text.unlikely.*)
  *(.text.exit .text.exit.*)
  *(.text.startup .text.startup.*)
@@ -188,121 +188,120 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  .text          0x00000000000015b4       0x14 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
  *fill*         0x00000000000015c8        0x8 1f2003d5
  .text          0x00000000000015d0       0xc8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
- .text          0x0000000000001698      0xccc /tmp/cc93nRJI.o
+ .text          0x0000000000001698      0xd1c /tmp/ccwjQj9b.o
                 0x0000000000001698                set_current_gain_buffer
                 0x00000000000017b0                set_test_pattern
-                0x0000000000001ac8                main
- .text          0x0000000000002364     0x2354 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
-                0x0000000000002364                rgb_txdata
-                0x000000000000249c                ul_rgb_txdata
-                0x00000000000025d8                map_segment_ul
-                0x00000000000026e0                map_segment
-                0x00000000000027c8                unmap_segment
-                0x000000000000282c                map_periph
-                0x00000000000028d8                unmap_periph_mem
-                0x0000000000002a40                get_periph_virt_addr_by_mmap
-                0x0000000000002b04                test_mmap_gpio_regs
-                0x0000000000002b3c                map_devices
-                0x0000000000002be0                enable_dma
-                0x0000000000002c58                gpio_mode
-                0x0000000000002d28                init_smi
-                0x0000000000003178                set_gpio_smi_mode
-                0x00000000000031cc                setup_smi_dma
-                0x0000000000003334                start_dma
-                0x0000000000003414                stop_dma
-                0x0000000000003464                rpi_start_dma
-                0x00000000000034a4                start_smi
-                0x00000000000034e4                stop_smi
-                0x0000000000003530                dma_transfer_len
-                0x0000000000003568                dma_active
-                0x00000000000035a0                swap_bytes
-                0x000000000000361c                smi_terminate
-                0x00000000000037f4                get_icled_timing_type
-                0x0000000000003808                get_icled_bits_per_pixel
-                0x000000000000381c                init_rpi_smi
-                0x0000000000003bf8                rpi_set_smi_chan_led_count
-                0x0000000000003c20                rpi_set_smi_buffer_24bit
-                0x0000000000003d70                rpi_set_smi_buffer_48bit
-                0x0000000000003ec0                set_test_buffer_48bit
-                0x000000000000408c                set_test_buffer_24bit
-                0x00000000000040a4                rpi_test_smi_rgb_buffer
-                0x00000000000040b0                rpi_start_smi
- .text          0x00000000000046b8      0x794 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
-                0x00000000000046b8                open_mbox
-                0x0000000000004700                close_mbox
-                0x0000000000004734                disp_vc_msg
-                0x0000000000004810                msg_mbox
-                0x0000000000004968                alloc_vc_mem
-                0x0000000000004a0c                lock_vc_mem
-                0x0000000000004a90                unlock_vc_mem
-                0x0000000000004b10                free_vc_mem
-                0x0000000000004b90                map_uncached_mem
- .text          0x0000000000004e4c     0x136c /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
-                0x0000000000004e4c                check_log_file
-                0x0000000000004eb8                parser_ignore_tag
-                0x0000000000004f84                parser_show_tag
-                0x0000000000005050                parser_log_level
-                0x0000000000005490                log_set_udata
-                0x00000000000054b8                log_set_lock
-                0x00000000000054e0                log_set_fp
-                0x0000000000005508                log_set_level
-                0x0000000000005530                log_set_quiet
-                0x0000000000005568                jlog
-                0x0000000000005854                lock_callback
-                0x0000000000005898                renew_log_file
-                0x0000000000005bcc                log_init
-                0x0000000000005ff8                dump_memory_data
-                0x00000000000060b0                popen_cmd
-                0x0000000000006110                detect_screen
- .text          0x00000000000061b8        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
- .text          0x00000000000061b8        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
+                0x0000000000001ab0                main
+ .text          0x00000000000023b4     0x27c8 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+                0x00000000000023b4                rgb_txdata
+                0x00000000000024ec                ul_rgb_txdata
+                0x0000000000002628                map_segment_ul
+                0x0000000000002730                map_segment
+                0x0000000000002818                unmap_segment
+                0x000000000000287c                map_periph
+                0x0000000000002928                unmap_periph_mem
+                0x0000000000002a90                get_periph_virt_addr_by_mmap
+                0x0000000000002b54                test_mmap_gpio_regs
+                0x0000000000002b8c                map_devices
+                0x0000000000002c30                enable_dma
+                0x0000000000002ca8                gpio_mode
+                0x0000000000002d78                init_smi
+                0x00000000000031c8                set_gpio_smi_mode
+                0x000000000000321c                setup_smi_dma
+                0x00000000000033d4                start_dma
+                0x00000000000034b4                stop_dma
+                0x0000000000003504                rpi_start_dma
+                0x0000000000003544                start_smi
+                0x0000000000003584                stop_smi
+                0x00000000000035d0                dma_transfer_len
+                0x0000000000003608                dma_active
+                0x0000000000003640                swap_bytes
+                0x00000000000036bc                smi_terminate
+                0x0000000000003894                get_icled_timing_type
+                0x00000000000038a8                get_icled_bits_per_pixel
+                0x00000000000038bc                init_rpi_smi
+                0x0000000000003d14                rpi_set_smi_chan_led_count
+                0x0000000000003d3c                rpi_set_smi_buffer_24bit
+                0x0000000000003e8c                rpi_set_smi_buffer_48bit
+                0x0000000000003fdc                set_test_buffer_48bit
+                0x00000000000041a8                set_test_buffer_24bit
+                0x00000000000041c0                rpi_test_smi_rgb_buffer
+                0x00000000000041cc                rpi_start_smi
+ .text          0x0000000000004b7c      0x794 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+                0x0000000000004b7c                open_mbox
+                0x0000000000004bc4                close_mbox
+                0x0000000000004bf8                disp_vc_msg
+                0x0000000000004cd4                msg_mbox
+                0x0000000000004e2c                alloc_vc_mem
+                0x0000000000004ed0                lock_vc_mem
+                0x0000000000004f54                unlock_vc_mem
+                0x0000000000004fd4                free_vc_mem
+                0x0000000000005054                map_uncached_mem
+ .text          0x0000000000005310     0x136c /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
+                0x0000000000005310                check_log_file
+                0x000000000000537c                parser_ignore_tag
+                0x0000000000005448                parser_show_tag
+                0x0000000000005514                parser_log_level
+                0x0000000000005954                log_set_udata
+                0x000000000000597c                log_set_lock
+                0x00000000000059a4                log_set_fp
+                0x00000000000059cc                log_set_level
+                0x00000000000059f4                log_set_quiet
+                0x0000000000005a2c                jlog
+                0x0000000000005d18                lock_callback
+                0x0000000000005d5c                renew_log_file
+                0x0000000000006090                log_init
+                0x00000000000064bc                dump_memory_data
+                0x0000000000006574                popen_cmd
+                0x00000000000065d4                detect_screen
+ .text          0x000000000000667c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
+ .text          0x000000000000667c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  *(.gnu.warning)
 
-.fini           0x00000000000061b8       0x18
+.fini           0x000000000000667c       0x18
  *(SORT_NONE(.fini))
- .fini          0x00000000000061b8        0xc /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
-                0x00000000000061b8                _fini
- .fini          0x00000000000061c4        0xc /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
+ .fini          0x000000000000667c        0xc /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
+                0x000000000000667c                _fini
+ .fini          0x0000000000006688        0xc /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
                 [!provide]                        PROVIDE (__etext = .)
                 [!provide]                        PROVIDE (_etext = .)
                 [!provide]                        PROVIDE (etext = .)
 
-.rodata         0x00000000000061d0      0xcc1
+.rodata         0x0000000000006698      0xf29
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata.cst4   0x00000000000061d0        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
-                0x00000000000061d0                _IO_stdin_used
- *fill*         0x00000000000061d4        0x4 
- .rodata        0x00000000000061d8      0x485 /tmp/cc93nRJI.o
- *fill*         0x000000000000665d        0x3 
- .rodata        0x0000000000006660      0x2cf /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
- *fill*         0x000000000000692f        0x1 
- .rodata        0x0000000000006930      0x196 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
- *fill*         0x0000000000006ac6        0x2 
- .rodata        0x0000000000006ac8      0x3c9 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+ .rodata.cst4   0x0000000000006698        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+                0x0000000000006698                _IO_stdin_used
+ *fill*         0x000000000000669c        0x4 
+ .rodata        0x00000000000066a0      0x4c5 /tmp/ccwjQj9b.o
+ *fill*         0x0000000000006b65        0x3 
+ .rodata        0x0000000000006b68      0x4f8 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+ .rodata        0x0000000000007060      0x196 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+ *fill*         0x00000000000071f6        0x2 
+ .rodata        0x00000000000071f8      0x3c9 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
 
 .rodata1
  *(.rodata1)
 
-.eh_frame_hdr   0x0000000000006e94      0x23c
+.eh_frame_hdr   0x00000000000075c4      0x23c
  *(.eh_frame_hdr)
- .eh_frame_hdr  0x0000000000006e94      0x23c /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
-                0x0000000000006e94                __GNU_EH_FRAME_HDR
+ .eh_frame_hdr  0x00000000000075c4      0x23c /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+                0x00000000000075c4                __GNU_EH_FRAME_HDR
  *(.eh_frame_entry .eh_frame_entry.*)
 
-.eh_frame       0x00000000000070d0      0x8c8
+.eh_frame       0x0000000000007800      0x8c8
  *(.eh_frame)
- .eh_frame      0x00000000000070d0       0x28 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
- .eh_frame      0x00000000000070f8       0x68 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+ .eh_frame      0x0000000000007800       0x28 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+ .eh_frame      0x0000000000007828       0x68 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
                                          0x78 (size before relaxing)
- .eh_frame      0x0000000000007160       0x70 /tmp/cc93nRJI.o
+ .eh_frame      0x0000000000007890       0x70 /tmp/ccwjQj9b.o
                                          0x80 (size before relaxing)
- .eh_frame      0x00000000000071d0      0x410 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
+ .eh_frame      0x0000000000007900      0x410 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
                                         0x420 (size before relaxing)
- .eh_frame      0x00000000000075e0      0x148 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
+ .eh_frame      0x0000000000007d10      0x148 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
                                         0x158 (size before relaxing)
- .eh_frame      0x0000000000007728      0x26c /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+ .eh_frame      0x0000000000007e58      0x26c /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
                                         0x280 (size before relaxing)
- .eh_frame      0x0000000000007994        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
+ .eh_frame      0x00000000000080c4        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
  *(.eh_frame.*)
 
 .gcc_except_table
@@ -313,7 +312,7 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
 
 .exception_ranges
  *(.exception_ranges*)
-                0x0000000000017d78                . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
+                0x0000000000018d78                . = DATA_SEGMENT_ALIGN (CONSTANT (MAXPAGESIZE), CONSTANT (COMMONPAGESIZE))
 
 .eh_frame
  *(.eh_frame)
@@ -328,7 +327,7 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
 .exception_ranges
  *(.exception_ranges*)
 
-.tdata          0x0000000000017d78        0x0
+.tdata          0x0000000000018d78        0x0
                 [!provide]                        PROVIDE (__tdata_start = .)
  *(.tdata .tdata.* .gnu.linkonce.td.*)
 
@@ -336,23 +335,23 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  *(.tbss .tbss.* .gnu.linkonce.tb.*)
  *(.tcommon)
 
-.preinit_array  0x0000000000017d78        0x0
+.preinit_array  0x0000000000018d78        0x0
                 [!provide]                        PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
                 [!provide]                        PROVIDE (__preinit_array_end = .)
 
-.init_array     0x0000000000017d78        0x8
+.init_array     0x0000000000018d78        0x8
                 [!provide]                        PROVIDE (__init_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.init_array.*) SORT_BY_INIT_PRIORITY(.ctors.*))
  *(.init_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .ctors)
- .init_array    0x0000000000017d78        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+ .init_array    0x0000000000018d78        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
                 [!provide]                        PROVIDE (__init_array_end = .)
 
-.fini_array     0x0000000000017d80        0x8
+.fini_array     0x0000000000018d80        0x8
                 [!provide]                        PROVIDE (__fini_array_start = .)
  *(SORT_BY_INIT_PRIORITY(.fini_array.*) SORT_BY_INIT_PRIORITY(.dtors.*))
  *(.fini_array EXCLUDE_FILE(*crtend?.o *crtend.o *crtbegin?.o *crtbegin.o) .dtors)
- .fini_array    0x0000000000017d80        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+ .fini_array    0x0000000000018d80        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
                 [!provide]                        PROVIDE (__fini_array_end = .)
 
 .ctors
@@ -372,129 +371,130 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
 .jcr
  *(.jcr)
 
-.data.rel.ro    0x0000000000017d88        0x0
+.data.rel.ro    0x0000000000018d88        0x0
  *(.data.rel.ro.local* .gnu.linkonce.d.rel.ro.local.*)
  *(.data.rel.ro .data.rel.ro.* .gnu.linkonce.d.rel.ro.*)
- .data.rel.ro   0x0000000000017d88        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+ .data.rel.ro   0x0000000000018d88        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
 
-.dynamic        0x0000000000017d88      0x220
+.dynamic        0x0000000000018d88      0x220
  *(.dynamic)
- .dynamic       0x0000000000017d88      0x220 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
-                0x0000000000017d88                _DYNAMIC
+ .dynamic       0x0000000000018d88      0x220 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+                0x0000000000018d88                _DYNAMIC
 
-.got            0x0000000000017fa8       0x40
+.got            0x0000000000018fa8       0x40
  *(.got)
- .got           0x0000000000017fa8       0x40 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
-                0x0000000000017fa8                _GLOBAL_OFFSET_TABLE_
+ .got           0x0000000000018fa8       0x40 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+                0x0000000000018fa8                _GLOBAL_OFFSET_TABLE_
  *(.igot)
-                0x0000000000017fe8                . = DATA_SEGMENT_RELRO_END (., 0x18)
+                0x0000000000018fe8                . = DATA_SEGMENT_RELRO_END (., 0x18)
 
-.got.plt        0x0000000000017fe8      0x1a0
+.got.plt        0x0000000000018fe8      0x1a0
  *(.got.plt)
- .got.plt       0x0000000000017fe8      0x1a0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+ .got.plt       0x0000000000018fe8      0x1a0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
  *(.igot.plt)
 
-.data           0x0000000000018188       0xc8
+.data           0x0000000000019188       0xc8
                 [!provide]                        PROVIDE (__data_start = .)
  *(.data .data.* .gnu.linkonce.d.*)
- .data          0x0000000000018188        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
-                0x0000000000018188                data_start
-                0x0000000000018188                __data_start
- .data          0x000000000001818c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
- .data          0x000000000001818c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
- *fill*         0x000000000001818c        0x4 
+ .data          0x0000000000019188        0x4 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+                0x0000000000019188                data_start
+                0x0000000000019188                __data_start
+ .data          0x000000000001918c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
+ .data          0x000000000001918c        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+ *fill*         0x000000000001918c        0x4 
  .data.rel.local
-                0x0000000000018190        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
-                0x0000000000018190                __dso_handle
- .data          0x0000000000018198        0x0 /tmp/cc93nRJI.o
- .data          0x0000000000018198       0x58 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
-                0x0000000000018198                chan_ledcount
-                0x000000000001819c                i_icled_bits_per_pixel
-                0x00000000000181a0                i_icled_smi_timing_type
-                0x00000000000181a8                on_rgbs
-                0x00000000000181e8                i_cg_signal_bytes
-                0x00000000000181ec                i_reset_signal_bytes
- .data          0x00000000000181f0        0x0 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
- .data          0x00000000000181f0        0x0 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+                0x0000000000019190        0x8 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+                0x0000000000019190                __dso_handle
+ .data          0x0000000000019198        0x0 /tmp/ccwjQj9b.o
+ .data          0x0000000000019198       0x58 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+                0x0000000000019198                chan_ledcount
+                0x000000000001919c                i_icled_bits_per_pixel
+                0x00000000000191a0                i_icled_smi_timing_type
+                0x00000000000191a8                on_rgbs
+                0x00000000000191e8                i_cg_signal_bytes
+                0x00000000000191ec                i_reset_signal_bytes
+ .data          0x00000000000191f0        0x0 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+ .data          0x00000000000191f0        0x0 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
  .data.rel.local
-                0x00000000000181f0       0x60 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
- .data          0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
- .data          0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
+                0x00000000000191f0       0x60 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
+ .data          0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
+ .data          0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
 
 .tm_clone_table
-                0x0000000000018250        0x0
+                0x0000000000019250        0x0
  .tm_clone_table
-                0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+                0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
  .tm_clone_table
-                0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
+                0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
 
 .data1
  *(.data1)
-                0x0000000000018250                _edata = .
+                0x0000000000019250                _edata = .
                 [!provide]                        PROVIDE (edata = .)
-                0x0000000000018250                . = .
-                0x0000000000018250                __bss_start = .
-                0x0000000000018250                __bss_start__ = .
+                0x0000000000019250                . = .
+                0x0000000000019250                __bss_start = .
+                0x0000000000019250                __bss_start__ = .
 
-.bss            0x0000000000018250    0xc8768
+.bss            0x0000000000019250    0xc87c8
  *(.dynbss)
- .dynbss        0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+ .dynbss        0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
  *(.bss .bss.* .gnu.linkonce.b.*)
- .bss           0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
- .bss           0x0000000000018250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
- .bss           0x0000000000018250        0x1 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
- *fill*         0x0000000000018251        0x7 
- .bss           0x0000000000018258    0x2ee00 /tmp/cc93nRJI.o
-                0x0000000000018258                ul_rgb_data
-                0x0000000000037658                ui_rgb_data
- .bss           0x0000000000047058    0x987fc /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
-                0x0000000000047058                test_rgb_data
-                0x0000000000056a58                test_ul_rgb_data
-                0x0000000000075e58                off_rgbs
-                0x0000000000075e98                gpio_regs
-                0x0000000000075ec8                dma_regs
-                0x0000000000075ef8                clk_regs
-                0x0000000000075f28                pwm_regs
-                0x0000000000075f58                smi_regs
-                0x0000000000075f88                kclk_regs
-                0x0000000000075fb8                vc_mem
-                0x0000000000075fe8                smi_cs
-                0x0000000000075ff0                smi_l
-                0x0000000000075ff8                smi_a
-                0x0000000000076000                smi_d
-                0x0000000000076008                smi_dmc
-                0x0000000000076010                smi_dsr
-                0x0000000000076018                smi_dsw
-                0x0000000000076020                smi_dcs
-                0x0000000000076028                smi_dca
-                0x0000000000076030                smi_dcd
-                0x0000000000076038                txdata
-                0x0000000000076040                tx_buf_w_index
-                0x0000000000076044                tx_buf_r_index
-                0x0000000000076048                tx_buffer_24bit
-                0x00000000000992d8                tx_buffer_48bit
-                0x00000000000df7e8                smi_start
-                0x00000000000df7f0                smi_lock
-                0x00000000000df820                mem_lock
-                0x00000000000df850                smi_quit
- .bss           0x00000000000df854        0x0 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
- *fill*         0x00000000000df854        0x4 
- .bss           0x00000000000df858     0x1160 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
-                0x00000000000df858                ignore_tag
-                0x00000000000e0058                show_tag
- .bss           0x00000000000e09b8        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
- .bss           0x00000000000e09b8        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
+ .bss           0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
+ .bss           0x0000000000019250        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crti.o
+ .bss           0x0000000000019250        0x1 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
+ *fill*         0x0000000000019251        0x7 
+ .bss           0x0000000000019258    0x2ee00 /tmp/ccwjQj9b.o
+                0x0000000000019258                ul_rgb_data
+                0x0000000000038658                ui_rgb_data
+ .bss           0x0000000000048058    0x9885c /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+                0x0000000000048058                test_rgb_data
+                0x0000000000057a58                test_ul_rgb_data
+                0x0000000000076e58                off_rgbs
+                0x0000000000076e98                gpio_regs
+                0x0000000000076ec8                dma_regs
+                0x0000000000076ef8                clk_regs
+                0x0000000000076f28                pwm_regs
+                0x0000000000076f58                smi_regs
+                0x0000000000076f88                kclk_regs
+                0x0000000000076fb8                vc_mem
+                0x0000000000076fe8                smi_cs
+                0x0000000000076ff0                smi_l
+                0x0000000000076ff8                smi_a
+                0x0000000000077000                smi_d
+                0x0000000000077008                smi_dmc
+                0x0000000000077010                smi_dsr
+                0x0000000000077018                smi_dsw
+                0x0000000000077020                smi_dcs
+                0x0000000000077028                smi_dca
+                0x0000000000077030                smi_dcd
+                0x0000000000077038                txdata
+                0x0000000000077040                tx_buf_w_index
+                0x0000000000077044                tx_buf_r_index
+                0x0000000000077048                tx_buffer_24bit
+                0x000000000009a308                tx_buffer_48bit
+                0x00000000000e0818                apa_m_gain
+                0x00000000000e0848                smi_start
+                0x00000000000e0850                smi_lock
+                0x00000000000e0880                mem_lock
+                0x00000000000e08b0                smi_quit
+ .bss           0x00000000000e08b4        0x0 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+ *fill*         0x00000000000e08b4        0x4 
+ .bss           0x00000000000e08b8     0x1160 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
+                0x00000000000e08b8                ignore_tag
+                0x00000000000e10b8                show_tag
+ .bss           0x00000000000e1a18        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
+ .bss           0x00000000000e1a18        0x0 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  *(COMMON)
-                0x00000000000e09b8                . = ALIGN ((. != 0x0)?0x8:0x1)
-                0x00000000000e09b8                _bss_end__ = .
-                0x00000000000e09b8                __bss_end__ = .
-                0x00000000000e09b8                . = ALIGN (0x8)
-                0x00000000000e09b8                . = SEGMENT_START ("ldata-segment", .)
-                0x00000000000e09b8                . = ALIGN (0x8)
-                0x00000000000e09b8                __end__ = .
-                0x00000000000e09b8                _end = .
+                0x00000000000e1a18                . = ALIGN ((. != 0x0)?0x8:0x1)
+                0x00000000000e1a18                _bss_end__ = .
+                0x00000000000e1a18                __bss_end__ = .
+                0x00000000000e1a18                . = ALIGN (0x8)
+                0x00000000000e1a18                . = SEGMENT_START ("ldata-segment", .)
+                0x00000000000e1a18                . = ALIGN (0x8)
+                0x00000000000e1a18                __end__ = .
+                0x00000000000e1a18                _end = .
                 [!provide]                        PROVIDE (end = .)
-                0x00000000000e09b8                . = DATA_SEGMENT_END (.)
+                0x00000000000e1a18                . = DATA_SEGMENT_END (.)
 
 .stab
  *(.stab)
@@ -519,10 +519,10 @@ LOAD /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../crtn.o
  .comment       0x0000000000000000       0x12 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../Scrt1.o
                                          0x26 (size before relaxing)
  .comment       0x0000000000000012       0x13 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtbeginS.o
- .comment       0x0000000000000012       0x13 /tmp/cc93nRJI.o
- .comment       0x0000000000000012       0x13 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_smi_j.o)
- .comment       0x0000000000000012       0x13 /home/root/sandbox/smi_trigger/libs//libsmi.a(rpi_mem_j.o)
- .comment       0x0000000000000012       0x13 /home/root/sandbox/smi_trigger/libs//libutildbg.a(utildbg.o)
+ .comment       0x0000000000000012       0x13 /tmp/ccwjQj9b.o
+ .comment       0x0000000000000012       0x13 /home/root/smi_trigger-main/libs//libsmi.a(rpi_smi_j.o)
+ .comment       0x0000000000000012       0x13 /home/root/smi_trigger-main/libs//libsmi.a(rpi_mem_j.o)
+ .comment       0x0000000000000012       0x13 /home/root/smi_trigger-main/libs//libutildbg.a(utildbg.o)
  .comment       0x0000000000000012       0x13 /usr/lib/gcc/aarch64-poky-linux/11.2.0/../../../aarch64-poky-linux/11.2.0/crtendS.o
 
 .gnu.build.attributes

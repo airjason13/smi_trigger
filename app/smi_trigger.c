@@ -9,6 +9,7 @@
 #define UNDEFINED		-1
 #define TIMING_TYPE_AOS		"aos"
 #define TIMING_TYPE_ANAPEX	"anapex"
+#define TIMING_TYPE_ANAPEX_M	"anapex_m"
 #define BITS_48_STR		"48"
 #define BITS_24_STR		"24"
 
@@ -26,7 +27,7 @@ typedef enum{
 
 unsigned long ul_rgb_data[1000][16];
 unsigned int ui_rgb_data[1000][16];
-#define BITS_8TO16_FACTOR	256
+#define BITS_8TO16_FACTOR	1 //256
 
 int set_current_gain_buffer(int i_bpp, int rgain, int ggain, int bgain)
 {
@@ -122,11 +123,11 @@ int main(int argc, char* argv[]){
 			case 'h':
 				printf("smi_trigger help\n");
 				printf("-h : show these message!\n");
-				printf("-t : icled timing type. aos/anapex\n");
+				printf("-t : icled timing type. aos/anapex/anapex_m\n");
 				printf("-b : icled bits per pixel. 48/24\n");
 				printf("-c : color type. r/g/b/w\n");
 				printf("-l : color level. 0~65535\n");
-				printf("-g : set current gain. rgain:ggain:bgain\r"
+				printf("-g : set current gain. rgain:ggain:bgain\n"
 				       "     If you set this parameter, the excution will only set current gain\n");
 				return 0;
 			case 't':
@@ -136,6 +137,10 @@ int main(int argc, char* argv[]){
 					i_icled_smi_timing_type = ICLED_SMI_TIMING_TYPE_AOS;
 				}else if(!strcmp(optarg, TIMING_TYPE_ANAPEX)){
 					i_icled_smi_timing_type = ICLED_SMI_TIMING_TYPE_APA104;	
+					log_debug("ANAPEX L!\n");	
+				}else if(!strcmp(optarg, TIMING_TYPE_ANAPEX_M)){
+					i_icled_smi_timing_type = ICLED_SMI_TIMING_TYPE_APAM;
+					log_debug("ANAPEX M low power!\n");	
 				}else{
 					log_error("unknow ICLED TIMING TYPE!\n");
 					return -1;

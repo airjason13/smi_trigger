@@ -118,7 +118,9 @@ MEM_MAP gpio_regs, dma_regs, clk_regs, pwm_regs, smi_regs, kclk_regs, vc_mem;
 #define LED_TX_OSET_24BIT(n) 		(LED_PREBITS + (LED_DLEN_24BITS * (n)))  // 4 + (24*3)*n 
 #define LED_TX_OSET_48BIT(n) 		(LED_PREBITS + (LED_DLEN_48BITS * (n)))  // 4 + (48*3)*n 
 
-#define TX_BUFF_LEN_24BIT(n) 		(LED_TX_OSET_24BIT(n) + LED_POSTBITS)   // 4 + (24*3)*n + 4
+//#define TX_BUFF_LEN_24BIT(n) 		(LED_TX_OSET_24BIT(n) + LED_POSTBITS)   // 4 + (24*3)*n + 4
+#define TX_BUFF_LEN_24BIT(n) 		(LED_TX_OSET_24BIT(n) + 24 + LED_POSTBITS)   // 4 + (24*3)*n + (24) + 4  // the extra 24 if the current gain parameter of anapex_m
+#define TX_BUFF_OFFSET_GAIN(n)		(LED_TX_OSET_24BIT(n))
 #define TX_BUFF_LEN_48BIT(n) 		(LED_TX_OSET_48BIT(n) + LED_POSTBITS)   // 4 + (48*3)*n + 4
 
 #define TX_BUFF_SIZE_8CHAN_24BIT(n)		(TX_BUFF_LEN_24BIT(n) * sizeof(unsigned short))  
@@ -154,25 +156,32 @@ int tx_buf_w_index = 0;
 int tx_buf_r_index = 0;
 #define tx_buf_max_index  1
 
-//anapex 24bit icled current gain signal and reset 
+//anapex L 24bit icled current gain signal and reset 
 int i_cg_signal_bytes = 13;
 int i_reset_signal_bytes = 162;
 
 TXDATA_T tx_buffer_24bit[tx_buf_max_index][TX_BUFF_LEN_24BIT(CHAN_MAXLEDS)];
 TXDATA_T tx_buffer_48bit[tx_buf_max_index][TX_BUFF_LEN_48BIT(CHAN_MAXLEDS)];
 
+
+TXDATA_T apa_m_gain[1][24];
+
 int smi_start = 0;
 pthread_mutex_t smi_lock;
 pthread_mutex_t mem_lock;
 int smi_quit = 0;
+
+
+
+
 
 void rgb_txdata(int *rgbs, TXDATA_T *txd){
 	int i, n, msk;
 	for (n=0; n<LED_NBITS_24; n++){
 		//msk = n==0? 0x8000: n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
 		//msk = n==0? 0x8000: n==8 ? 0x80 : n==16 ? 0x800000 : msk>>1;
-        msk = n==0 ? 0x8000 : n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
-        //log_debug("msk : %d\n", msk);
+        	msk = n==0 ? 0x8000 : n==8 ? 0x800000 : n==16 ? 0x80 : msk>>1;
+        	//log_debug("msk : %d\n", msk);
 		txd[0] = (TXDATA_T)0xffff;
 		txd[1] = txd[2] = 0;
 		for (i = 0; i < LED_NCHANS; i++){
@@ -520,6 +529,9 @@ int init_rpi_smi(int led_timing_type, int bits_per_pixel, bool gain_mode){
 	    init_smi(LED_NCHANS>8 ? SMI_16_BITS : SMI_8_BITS, AOS_SMI_TIMING);	
     }else if(i_icled_smi_timing_type == ICLED_SMI_TIMING_TYPE_APA104){
 	    init_smi(LED_NCHANS>8 ? SMI_16_BITS : SMI_8_BITS, APA104_SMI_TIMING);	 
+    }else if(i_icled_smi_timing_type == ICLED_SMI_TIMING_TYPE_APAM){
+	    log_debug("timing same as apa104!\n");
+	    init_smi(LED_NCHANS>8 ? SMI_16_BITS : SMI_8_BITS, APA104_SMI_TIMING);	 
     }
 	set_gpio_smi_mode();
 	usleep(1000);
@@ -545,7 +557,9 @@ int init_rpi_smi(int led_timing_type, int bits_per_pixel, bool gain_mode){
         	printf("48bit 16chan init dma len = %d\n", TX_BUFF_LEN_48BIT(chan_ledcount));
     	    }else if(i_icled_bits_per_pixel == BITS_PER_PIXEL_24){
 	    	map_uncached_mem(&vc_mem, VC_MEM_SIZE_16CHAN_24BIT);
-	    	setup_smi_dma(&vc_mem, TX_BUFF_LEN_24BIT(chan_ledcount) + 960);
+	    	//setup_smi_dma(&vc_mem, TX_BUFF_LEN_24BIT(chan_ledcount) + 960);
+	    	setup_smi_dma(&vc_mem, TX_BUFF_LEN_24BIT(chan_ledcount) + (24*16*3));
+        	printf("24bit 16chan init dma len = %d\n", TX_BUFF_LEN_24BIT(chan_ledcount) + (24*16*3));
     	    }else{
 	    	map_uncached_mem(&vc_mem, VC_MEM_SIZE_16CHAN_24BIT);
 	    	setup_smi_dma(&vc_mem, TX_BUFF_LEN_24BIT(chan_ledcount) + 960);
@@ -586,13 +600,13 @@ int rpi_set_smi_buffer_24bit(unsigned int uirgbdata[1000][16]){
     }
     pthread_mutex_lock(&mem_lock);
     if(i_icled_bits_per_pixel == BITS_PER_PIXEL_24){
-	    for(int n = 0; n < chan_ledcount; n++){
-		    rgb_txdata(uirgbdata[n], &tx_buffer_24bit[tx_buf_w_index][LED_TX_OSET_24BIT(n)]);
-	    }
+	for(int n = 0; n < chan_ledcount; n++){
+		rgb_txdata(uirgbdata[n], &tx_buffer_24bit[tx_buf_w_index][LED_TX_OSET_24BIT(n)]);
+	}
         tx_buf_r_index = tx_buf_w_index;
         tx_buf_w_index += 1;
         if(tx_buf_w_index >= tx_buf_max_index){
-            tx_buf_w_index = 0;
+        	tx_buf_w_index = 0;
         }
     }
     pthread_mutex_unlock(&mem_lock);
@@ -718,6 +732,7 @@ int rpi_test_smi_rgb_buffer(void){
 //int rpi_start_smi(void){
 int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     log_debug("");
+    int target_count = 0;
     int i_n_cg_bytes = 0;/* number of curren gain signal bytes, include reset*/
     log_debug("size: %d\n", (CHAN_MAXLEDS));
     pthread_mutex_lock(&mem_lock);
@@ -733,10 +748,16 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     	}
     }else{
     	/* set current gain*/
+	// ANAPEX L
+	log_debug("set current gain data!\n");
 	if(i_icled_timing == ICLED_SMI_TIMING_TYPE_APA104){
     		if(bpp == BITS_PER_PIXEL_24){
-			for(int z = 0; z < 50;z ++){
-				*(txdata + z) = 0xffff;
+			for(int z = 0; z < 688;z ++){
+				if(z < 50)
+					*(txdata + z) = 0xffff;
+				else
+					*(txdata + z) = 0x0;
+
 			}
     			memcpy(txdata + 688, tx_buffer_24bit[tx_buf_r_index], TX_BUFF_SIZE_16CHAN_24BIT(chan_ledcount));
 			i_n_cg_bytes = 688;
@@ -745,11 +766,44 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     			pthread_mutex_unlock(&mem_lock);
 			return -1;
     		}
+	}else if(i_icled_timing == ICLED_SMI_TIMING_TYPE_APAM){
+    		if(bpp == BITS_PER_PIXEL_24){
+			// start of set the current gain parameter in the end of current gain data
+			unsigned short cg_array[] = {	0xFFFF, 0xFFFF, 0x0000, //b'1
+							0xFFFF, 0x0000, 0x0000, //b'0 
+							0xFFFF, 0xFFFF, 0x0000, //b'1
+							0xFFFF, 0xFFFF, 0x0000, //b'1 //0xB
+							0xFFFF, 0x0000, 0x0000, //b'0 
+							0xFFFF, 0xFFFF, 0x0000, //b'1
+							0xFFFF, 0x0000, 0x0000, //b'0 
+							0xFFFF, 0xFFFF, 0x0000, //b'1 //0x5
+							};
+
+			log_debug("sizeof(cg_rray): %d\n", sizeof(cg_array));
+			for(int q = 0; q < sizeof(cg_array)/sizeof(unsigned short); q++){
+				memcpy(&tx_buffer_24bit[tx_buf_r_index][TX_BUFF_OFFSET_GAIN(chan_ledcount) + q], &cg_array[q], 2);		
+			}
+			// end of set the current gain parameter in the end of current gain data
+			
+			log_debug("tx_buffer_24bit[tx_buf_r_index][TX_BUFF_OFFSET_GAIN(chan_ledcount)] = 0x%x", *(unsigned int*)&tx_buffer_24bit[tx_buf_r_index][TX_BUFF_OFFSET_GAIN(chan_ledcount)]);		
+			log_debug("tx_buffer_24bit[tx_buf_r_index][TX_BUFF_OFFSET_GAIN(chan_ledcount) + 4] = 0x%x", *(unsigned int*)&tx_buffer_24bit[tx_buf_r_index][TX_BUFF_OFFSET_GAIN(chan_ledcount)] + 4);		
+    			memcpy(txdata, tx_buffer_24bit[tx_buf_r_index], TX_BUFF_SIZE_16CHAN_24BIT(chan_ledcount) + 24*16);
+			log_debug("TX_BUFF_SIZE_16CHAN_24BIT(chan_ledcount) = %d\n", 
+					TX_BUFF_SIZE_16CHAN_24BIT(chan_ledcount));
+			i_n_cg_bytes = 24; //24*16;
+			log_debug("ICLED_SMI_TIMING_TYPE_APAM!\n");
+		}else{
+			log_debug("apa M only 24bpp!\n");
+    			pthread_mutex_unlock(&mem_lock);
+			return -1;
+    		}
+
 	}else{
 		log_error("ICLED TYPE Current Gain not implemented!\n");
     		pthread_mutex_unlock(&mem_lock);
 		return -1;	
 	}
+	log_debug("end of set current gain data!\n");
     }
     pthread_mutex_unlock(&mem_lock);
     pthread_mutex_lock(&smi_lock);
@@ -763,11 +817,13 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
         
     if(bpp == BITS_PER_PIXEL_48){
         //should be nsamp
-    	smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount) + 960;
+    	//smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount) + 960;
+    	smi_l->len = TX_BUFF_LEN_48BIT(chan_ledcount) + i_n_cg_bytes;
     	log_debug("smi_l->len = %d\n", TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
     }else if(bpp == BITS_PER_PIXEL_24){
         //should be nsamp
-    	smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount) + 960;//TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
+    	smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount) + i_n_cg_bytes;//TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
+    	//smi_l->len = TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes;
     	//log_debug("smi_l->len = %d\n", TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T) + i_n_cg_bytes);	
     	log_debug("smi_l->len = %d\n", smi_l->len);	
     }else{
@@ -775,6 +831,7 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
     	pthread_mutex_unlock(&smi_lock);
 	return -1;
     }
+    target_count = smi_l->len;
     start_smi(&vc_mem);
     int i = 0;    
     while(1){
@@ -783,22 +840,22 @@ int rpi_start_smi(int bpp, bool b_set_gain, int i_icled_timing){
             log_fatal("break with smi hang!\n");
             break;
         }
-        usleep(1000*1);
+        usleep(1000*10);
         unsigned int end_ret = *REG32(smi_regs, SMI_L);
-        log_debug("end_ret = %d\n", end_ret);
+        //log_debug("end_ret = %d\n", end_ret);
     	if(bpp == BITS_PER_PIXEL_48){
         	//if((end_ret % TX_BUFF_LEN_48BIT(chan_ledcount)*sizeof(TXDATA_T)) == 0){
-        	if(smi_l->len % end_ret == 0){
-                    end_ret = *REG32(smi_regs, SMI_L);
-                    log_debug("48bpp break end_ret = %d\n", end_ret);
+        	if(smi_l->len >= target_count){
+                    	end_ret = *REG32(smi_regs, SMI_L);
+                    	log_debug("48bpp break end_ret = %d\n", end_ret);
             		usleep(1000*1);
             		break;
         	}
 	    }else if(bpp == BITS_PER_PIXEL_24){
         	//if((end_ret % (TX_BUFF_LEN_24BIT(chan_ledcount)*sizeof(TXDATA_T)) + i_n_cg_bytes) == 0){
-        	if(smi_l->len % end_ret == 0){
-                    end_ret = *REG32(smi_regs, SMI_L);
-                    log_debug("24bpp break end_ret = %d\n", end_ret);
+        	if(smi_l->len >= target_count){
+                    	end_ret = *REG32(smi_regs, SMI_L);
+                    	log_debug("24bpp break end_ret = %d\n", end_ret);
             		usleep(1000*1);
             		break;
         	}
